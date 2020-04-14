@@ -1,0 +1,80 @@
+$backgroundcolor: lightgreen;
+$textcolor: #329932;
+h1, h2, h3,
+h4, h5, h6 {
+    @extend %headings !optional;
+}
+
+%greenstyle {
+  background-color: $backgroundcolor;
+  color: $textcolor;
+  %headings {
+    color: white;
+  }
+}
+
+HEADER {
+  text-align: center;
+  @extend %greenstyle;
+
+  h1::after {
+    content: "My Quarantine Routine";
+  }
+
+  h5::after {
+    content: "How I stay sane through this crazy time.";
+  }
+}
+
+nav {
+  .navbar-brand::after {
+    content: "Homepage";
+  }
+
+  #nav-item-1::after {
+    content: "Cook";
+  }
+
+  #nav-item-2::after {
+    content: "Workout";
+  }
+
+  #nav-item-3::after {
+    content: "Crochet";
+  }
+}
+
+section {
+  @media (min-width: 700px) {
+    font-size: 20px;
+  }
+  @media (max-width: 699px) {
+    font-size: 15px;
+  }
+
+  hr {
+    color: black;
+    border-width: medium;
+    border-style: dotted;
+  }
+
+  div[class^="col"] {
+    @extend %greenstyle;
+    padding: 10px;
+    margin: 5px;
+
+    [type="button"] {
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+  }
+
+  div > [class="col-3"] {
+    min-width: 175px;
+    max-width: 230px;
+  }
+  div > [class="col-6"] {
+    min-width: 350px;
+    max-width: 460px;
+  }
+}

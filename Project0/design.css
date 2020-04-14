@@ -1,0 +1,48 @@
+HEADER, section div[class^="col"] {
+  background-color: lightgreen;
+  color: #329932; }
+  HEADER h1, section div[class^="col"] h1, HEADER h2, section div[class^="col"] h2, HEADER h3, section div[class^="col"] h3,
+  HEADER h4,
+  section div[class^="col"] h4, HEADER h5, section div[class^="col"] h5, HEADER h6, section div[class^="col"] h6 {
+    color: white; }
+
+HEADER {
+  text-align: center; }
+  HEADER h1::after {
+    content: "My Quarantine Routine"; }
+  HEADER h5::after {
+    content: "How I stay sane through this crazy time."; }
+
+nav .navbar-brand::after {
+  content: "Homepage"; }
+nav #nav-item-1::after {
+  content: "Cook"; }
+nav #nav-item-2::after {
+  content: "Workout"; }
+nav #nav-item-3::after {
+  content: "Crochet"; }
+
+@media (min-width: 700px) {
+  section {
+    font-size: 20px; } }
+@media (max-width: 699px) {
+  section {
+    font-size: 15px; } }
+section hr {
+  color: black;
+  border-width: medium;
+  border-style: dotted; }
+section div[class^="col"] {
+  padding: 10px;
+  margin: 5px; }
+  section div[class^="col"] [type="button"] {
+    margin-top: 15px;
+    margin-bottom: 15px; }
+section div > [class="col-3"] {
+  min-width: 175px;
+  max-width: 230px; }
+section div > [class="col-6"] {
+  min-width: 350px;
+  max-width: 460px; }
+
+/*# sourceMappingURL=design.css.map */
