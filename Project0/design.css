@@ -18,7 +18,7 @@ nav .navbar-brand::after {
 nav #nav-item-1::after {
   content: "Cook"; }
 nav #nav-item-2::after {
-  content: "Workout"; }
+  content: "Daily Routine"; }
 nav #nav-item-3::after {
   content: "Crochet"; }
 
@@ -44,5 +44,16 @@ section div > [class="col-3"] {
 section div > [class="col-6"] {
   min-width: 350px;
   max-width: 460px; }
+
+table td {
+  border: solid 1px black;
+  background: black; }
+table th {
+  padding: 10px;
+  border: solid 1px black; }
+table .table-div {
+  background-color: white;
+  margin-bottom: 1px;
+  padding: 2px; }
 
 /*# sourceMappingURL=design.css.map */

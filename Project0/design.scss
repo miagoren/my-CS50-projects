@@ -1,5 +1,6 @@
 $backgroundcolor: lightgreen;
 $textcolor: #329932;
+$tableborder: solid 1px black;
 h1, h2, h3,
 h4, h5, h6 {
     @extend %headings !optional;
@@ -36,7 +37,7 @@ nav {
   }
 
   #nav-item-2::after {
-    content: "Workout";
+    content: "Daily Routine";
   }
 
   #nav-item-3::after {
@@ -76,5 +77,23 @@ section {
   div > [class="col-6"] {
     min-width: 350px;
     max-width: 460px;
+  }
+}
+
+table {
+  td {
+    border: $tableborder;
+    background: black;
+  }
+
+  th {
+    padding: 10px;
+    border: $tableborder;
+  }
+
+  .table-div {
+    background-color: white;
+    margin-bottom: 1px;
+    padding: 2px;
   }
 }
