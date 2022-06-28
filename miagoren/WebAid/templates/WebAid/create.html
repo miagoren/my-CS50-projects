@@ -1,0 +1,24 @@
+{% extends 'WebAid/layout.html' %}
+
+{% block title %}Create an opportunity{% endblock %}
+
+{% block body %}
+<div class="row">
+  <!-- Recent opportunities box -->
+  <div class="col box-style shadow-sm p-3">
+    <p class="display-4">Create a new opportunity</p>
+    <form class="form" action="{% url 'create' %}" method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <p class="form-group">
+           {{ field }}
+           <small class="form-text text-muted">
+             {{ field.errors.as_text }}
+           </small>
+        </p>
+     {% endfor %}
+      <input class="btn btn-info" type="submit" value="create">
+    </form>
+  </div>
+</div>
+{% endblock %}

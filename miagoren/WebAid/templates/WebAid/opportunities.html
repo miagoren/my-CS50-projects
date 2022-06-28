@@ -1,0 +1,53 @@
+{% extends "WebAid/layout.html" %}
+
+{% block title %}All opportunities{% endblock %}
+
+{% block body %}
+<div class="row">
+  <!-- All opportunities -->
+  <div class="col box-style shadow-sm p-3">
+    <p class="display-4">All Opportunities</p>
+    <p>Currently there are {{ opportunity_count }} available opportunities.</p>
+
+    <ul class="list-group list-group-horizontal" id="filter-box">
+      <input type="text" id="categories" class="list-group-item col" placeholder="Filter categories"></input>
+      <input type="text" id="location" class="list-group-item col" placeholder="Filter location"></input>
+      <input type="date" id="creation_time" class="list-group-item col" title="Show opportunities crearted after this date"></input>
+      <button class="list-group-item list-group-item-action col">Set as default search preferences</button> <!-- implement search preferences -->
+    </ul>
+
+    <ul id="category-badges">
+      <!-- category badges -->
+    </ul>
+
+    <ul class="list-group" id="opportunities">
+      <!-- opportunity list -->
+    </ul>
+    <ul class="list-group" id="no-opportunities">
+      <a class="list-group-item">
+        <div class="d-flex justify-content-between">
+          <h5>There are no opportunities</h5>
+          <small></small>
+        </div>
+        <p>No opportunities were found. Try to change the filters to see more options.</p>
+        <small></small>
+      </a>
+    </ul>
+
+    <!-- navigator -->
+    <nav aria-label="Opportunity page navigation" id="pagination">
+    </nav>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script>
+  let pre_category = null;
+  {% if category %}
+  pre_category = '{{ category }}';
+  {% endif %}
+</script>
+<script src="../static/WebAid/opportunities.js"></script>
+{% endblock %}

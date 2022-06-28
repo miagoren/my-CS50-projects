@@ -1,0 +1,80 @@
+{% extends 'WebAid/layout.html' %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block body %}
+<div class="row">
+  <div class="col box-style shadow-sm p-3">
+    <!-- user info -->
+    <p class="display-4">{{ user.username }}</p>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Date joined: {{ user.date_joined }}</li>
+      <li class="list-group-item">Last login: {{ user.last_login }}</li>
+      <li class="list-group-item edit-hide">Location: {{ user.location }}</li>
+      <input type="text" class="list-group-item edit-show" name="location" placeholder="Location" value="{{ user.location }}"></input>
+      <li class="list-group-item edit-hide">Skills:{% for skill in user.skills %} <a href="../opportunities/1?category={{ skill }}">{{ skill }}</a>,{% endfor %}</li>
+      <input type="text" class="list-group-item edit-show" name="skills" placeholder="Skills, separeted by commas" value="{% for skill in user.skills %}{{ skill }}, {% endfor %}"></input>
+      {% if request.user.is_authenticated and request.user.id != user.id %}
+      <a class="list-group-item list-group-item-action" id="message">Message {{ user.username }}</a>
+      <form class="form" action="{% url 'messaging' %}" method="post" id="message-form">
+        {% for field in form %}
+        {{ field.as_hidden }}
+        {% endfor %}
+      </form>
+      {% endif %}
+      {% if request.user.id == user.id %}
+      <a class="list-group-item list-group-item-action" id="edit">Edit profile info</a>
+      {% endif %}
+    </ul>
+  </div>
+
+  {% if user.get_latest_resolved.count != 0 %}
+  <div class="col box-style shadow-sm p-3">
+    <!-- opportunities resolved by this user -->
+    <p class="display-4">Resolved by {{ user.username }}</p>
+    {% if user.get_latest_resolved.count > 1 %}
+    <p>{{ user.username }} helped resolve {{ user.get_latest_resolved.count }} opportunities, latest ones:</p>
+    {% endif %}
+    <ul class="list-group">
+      {% for resolve in user.get_latest_resolved %}
+      <a href="{% url 'opportunity' opportunity_id=resolve.opportunity.id %}" class="list-group-item list-group-item-action opportunity">
+        <div class="d-flex justify-content-between">
+          <h5>{{ resolve.opportunity.title }}</h5>
+          <small>{{ resolve.opportunity.creation_time }}</small>
+        </div>
+        <p>{{ resolve.summary }}</p>
+        <small>{{ resolve.opportunity.location }}</small>
+      </a>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+</div>
+
+<div class="row">
+  <div class="col box-style shadow-sm p-3">
+    <!-- opportunities offered by this user -->
+    <p class="display-4">Offered by {{ user.username }}</p>
+    <p>{{ user.username }} currently offers {{ user.get_latest_created.count }} opportunities.</p>
+    <ul class="list-group">
+      {% for opportunity in user.get_latest_created %}
+      <a href="{% url 'opportunity' opportunity_id=opportunity.id %}" class="list-group-item list-group-item-action opportunity">
+        <div class="d-flex justify-content-between">
+          <h5>{{ opportunity.title }}</h5>
+          <small>{{ opportunity.creation_time }}</small>
+        </div>
+        <p>{{ opportunity.description }}</p>
+        <small>{{ opportunity.location }}</small>
+      </a>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+  const user_id = {{ user.id }};
+</script>
+<script src="../static/WebAid/user.js"></script>
+{% endblock %}

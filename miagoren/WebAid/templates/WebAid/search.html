@@ -1,0 +1,55 @@
+{% extends "WebAid/layout.html" %}
+
+{% block title %}WebAid - search{% endblock %}
+
+{% block body %}
+<div class="row">
+  <!-- Search results -->
+  <div class="col box-style shadow-sm p-3">
+    <p class="display-4">Search results</p>
+    <p>{{ users.count }} users and {{ opportunities.count }} opportunities were found.</p>
+
+    {% if users.count %}<h4>Users:</h4>{% endif %}
+    <ul class="list-group">
+      {% for result in users %}
+      <a class="list-group-item list-group-item-action" href="{% url 'user' user_id=result.id %}">
+        <div class="d-flex justify-content-between">
+          <h5>{{ result.username }}</h5>
+          <small>Last seen: {{ result.last_login.date }}</small>
+        </div>
+        <p>From {{ result.location }}</p>
+      </a>
+      {% endfor %}
+    </ul>
+
+    {% if opportunities.count %}<h4>Opportunities:</h4>{% endif %}
+    <ul class="list-group">
+      {% for result in opportunities %}
+      <a class="list-group-item list-group-item-action" href="{% url 'opportunity' opportunity_id=result.id %}">
+        <div class="d-flex justify-content-between">
+          <h5>{{ result.title }}</h5>
+          <small>{{ result.creation_time }}</small>
+        </div>
+        <p>{{ result.description }}</p>
+        <small>{{ result.location }}</small>
+      </a>
+      {% endfor %}
+    </ul>
+
+    <ul class="list-group">
+      {% if users.count|add:opportunities.count == 0 %}
+      <a class="list-group-item">
+        <div class="d-flex justify-content-between">
+          <h5>No results found</h5>
+        </div>
+        <p>No results were found. Try to change the keywords of your search.</p>
+      </a>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}

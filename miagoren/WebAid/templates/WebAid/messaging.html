@@ -1,0 +1,52 @@
+{% extends 'WebAid/layout.html' %}
+
+{% block title %}WebAid - Messaging{% endblock %}
+
+{% block body %}
+<div class="row">
+  <div class="col box-style shadow-sm p-3">
+    <!-- user info -->
+    <p class="display-4">Messaging</p>
+    <ul class="list-group" id="convo-box">
+    </ul>
+  </div>
+
+  <div class="col box-style shadow-sm p-3" id="messages">
+    <!-- show conversation here -->
+    <p class="display-4" id="subject-box"></p>
+    <div id="recipient-box"><!-- recipient --></div>
+    <button type="button" class="btn btn-link leave">Leave conversation</button>
+    <ul class="list-group list-group-flush" id="message-box">
+      <!-- messages show here -->
+    </ul>
+    <form class="form-group row" id="new-message">
+      <input class="form-control col" type="text" placeholder="New message..."></input>
+      <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+  </div>
+
+  <div class="col box-style shadow-sm p-3" id="new-conversation">
+    <!-- new conversation form -->
+    <p class="display-4">New conversation</p>
+    <form class="form" action="{% url 'messaging' %}" method="post">
+      {% for field in form %}
+        <p class="form-group">
+           {{ field }}
+           <small class="form-text text-muted">
+             {{ field.errors.as_text }}
+           </small>
+        </p>
+     {% endfor %}
+      <input class="btn btn-info" type="submit" value="create">
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+  const user_id = {{ request.user.id }};
+  const go_to = '{{ go_to }}';
+</script>
+<script src="../static/WebAid/messaging.js"></script>
+{% endblock %}

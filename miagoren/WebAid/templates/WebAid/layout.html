@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}WebAid{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'WebAid/styles.css' %}">
+    <script>
+      function get_url(page, param) {
+        if (page == 'opportunity') {
+          return "{% url 'opportunity' opportunity_id=0 %}".replace(0, param);
+        }
+        if (page == 'user') {
+          return "{% url 'user' user_id=0 %}".replace(0, param);
+        }
+        if (page == 'messaging') {
+          return "{% url 'messaging' %}";
+        }
+        if (page == 'helpers') {
+          return "{% url 'helpers' %}";
+        }
+      };
+    </script>
+    {% block script %}
+    {% endblock %}
+    {% url 'index' as home_url %}
+    {% url 'opportunities' as opportunities_url %}
+    {% url 'create' as create_url %}
+    {% url 'messaging' as messaging_url %}
+    {% url 'user' user_id=request.user.id as user_url %}
+    {% url 'register' as register_url %}
+    {% url 'login' as login_url %}
+  </head>
+  <body>
+    <header class="container-fluid bg-info header">
+      <a href="{% url 'index' %}"><p class="display-1">WebAid</p></a>
+      <hr>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+      <ul class="navbar-nav mr-auto d-flex align-items-center">
+        <li class="nav-item{% ifequal request.path home_url %} active{% endifequal %}"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+        <li class="nav-item{% ifequal request.path opportunities_url %} active{% endifequal %}"><a href="{% url 'opportunities' %}" class="nav-link">All opportunities</a></li>
+        {% if request.user.is_authenticated %}
+        <li class="nav-item{% ifequal request.path create_url %} active{% endifequal %}"><a href="{% url 'create' %}" class="nav-link">Create an opportunity</a></li>
+        <li class="nav-item{% ifequal request.path messaging_url %} active{% endifequal %}"><a href="{% url 'messaging' %}" class="nav-link">Messaging</a></li>
+        <li class="nav-item small{% ifequal request.path user_url %} active{% endifequal %}"><a href="{% url 'user' user_id=request.user.id %}" class="nav-link">Logged in as {{ request.user }}</a></li>
+        <li class="nav-item small"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
+        {% else %}
+        <li class="nav-item small{% ifequal request.path register_url %} active{% endifequal %}"><a href="{% url 'register' %}" class="nav-link">Register</a></li>
+        <li class="nav-item small{% ifequal request.path login_url %} active{% endifequal %}"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
+        {% endif %}
+      </ul>
+
+      <form class="form-inline" action="{% url 'search' %}" method="post">
+        {% csrf_token %}
+        <input class="form-control mr-sm-2" type="search" placeholder="Search..." name="search">
+        <button class="btn btn-outline-light my-2 my-sm-2 search-button" type="submit">Search</button>
+      </form>
+    </nav>
+
+    <div class="container">
+      {% block body %}
+      {% endblock %}
+    </div>
+  </body>
+</html>

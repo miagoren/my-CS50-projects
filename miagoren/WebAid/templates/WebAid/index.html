@@ -1,0 +1,47 @@
+{% extends 'WebAid/layout.html' %}
+
+{% block body %}
+<div class="row">
+  <!-- Info box -->
+  <div class="col box-style shadow-sm p-3">
+    <p class="display-4">Welcome to WebAid!</p>
+    Here any person can help any other person, just have a look at one of the recent opportunities.
+  </div>
+
+  <!-- Leaderboard box -->
+  <div class="col box-style shadow-sm p-3">
+    <p class="display-4">Leading Helpers</p>
+    <ul class="list-group list-group-flush">
+      {% for helper in helpers %}
+      <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" href="{% url 'user' user_id=helper.id %}">
+        {{ helper.username }}
+        <span class="badge badge-pill badge-info">{{ helper.resolved.count }}</span>
+      </a>
+      {% endfor %}
+      <a class="list-group-item list-group-item-action see-all" href="{% url 'helpers' %}">
+        See all leading helpers
+      </a>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <!-- Recent opportunities box -->
+  <div class="col box-style shadow-sm p-3">
+    <p class="display-4">Recent Opportunities</p>
+    <ul class="list-group">
+      {% for opportunity in opportunities %}
+      <a href="{% url 'opportunity' opportunity_id=opportunity.id %}" class="list-group-item list-group-item-action opportunity">
+        <div class="d-flex justify-content-between">
+          <h5>{{ opportunity.title }}</h5>
+          <small>{{ opportunity.creation_time }}</small>
+        </div>
+        <p>{{ opportunity.description }}</p>
+        <small>{{ opportunity.location }}</small>
+      </a>
+      {% endfor %}
+      <a href="{% url 'opportunities' %}" class="list-group-item list-group-item-action see-all">See all opportunities</a>
+    </ul>
+  </div>
+</div>
+{% endblock %}

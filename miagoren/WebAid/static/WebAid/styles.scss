@@ -1,0 +1,81 @@
+.header {
+  margin-bottom: 0;
+  padding: 10px;
+  text-align: center;
+  color: white;
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
+
+  hr {
+    border-top: solid 2px white;
+  }
+}
+
+nav.navbar {
+  position: sticky;
+  z-index: 10;
+  top: 0;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.box-style {
+  margin: 5px;
+  border-radius: 3px;
+}
+
+.see-all {
+  text-align: center;
+}
+
+.opportunity p {
+  white-space: pre-wrap;
+}
+
+#filter-box {
+  padding-bottom: 10px;
+}
+
+nav#pagination {
+  padding-top: 10px;
+
+  li {
+    width: -webkit-fill-available;
+  }
+
+  span {
+    text-align: center;
+  }
+}
+
+#category-badges li {
+  margin-left: 5px;
+}
+
+#message-box {
+  margin-top: 10px;
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.my-message {
+  text-align: end;
+}
+
+#new-message {
+  margin: 1px;
+  margin-top: 10px;
+
+  input {
+    margin-right: 5px;
+  }
+}
+
+.form {
+  margin-top: 10px;
+}
